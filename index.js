@@ -10,7 +10,7 @@ const argv = yargs
   .alias('help', 'h')
   .version('0.0.1')
   .alias('version', 'v')
-  .example('$0 --entry ./filesSort --output ./dist -D true => Sortings folder')
+  .example('$0 --entry ./filesSort --output ./dist -D => Sortings folder')
   .option('entry', {
     alias: 'e',
     describe: 'Путь к читаемой директории',
@@ -32,9 +32,13 @@ const argv = yargs
 paths.source = path.normalize(path.join(__dirname, argv.entry))
 paths.dist = path.normalize(path.join(__dirname, argv.output))
 
-// console.log(Boolean(argv.delete))
-
 readDir(paths.source, paths.dist)
+
 if (argv.delete) {
-  fse.removeSync(paths.source.toString())
+  fse.remove(paths.source.toString(), (err) => {
+    if (err) {
+      console.error(err)
+      return
+    }
+  })
 }
