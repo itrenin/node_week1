@@ -33,12 +33,18 @@ paths.source = path.normalize(path.join(__dirname, argv.entry))
 paths.dist = path.normalize(path.join(__dirname, argv.output))
 
 readDir(paths.source, paths.dist)
-
-if (argv.delete) {
-  fse.remove(paths.source.toString(), (err) => {
-    if (err) {
-      console.error(err)
-      return
+  .then((result) => {
+    if (result) {
+      if (argv.delete) {
+        fse.remove(paths.source.toString(), (err) => {
+          if (err) {
+            console.error(err)
+            return
+          }
+        })
+      }
     }
   })
-}
+  .catch((e) => {
+    throw e
+  })

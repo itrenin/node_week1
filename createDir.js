@@ -7,7 +7,7 @@ const createDir = (fileName, sourcePath, destinationPath) => {
     destinationPath.toString(),
     fileName[0].toUpperCase()
   )
-  // console.log(localDestPath)
+  
   if (!fs.existsSync(destinationPath)) {
     fs.mkdir(destinationPath, (err) => {
       if (err) throw err
@@ -19,7 +19,7 @@ const createDir = (fileName, sourcePath, destinationPath) => {
     })
   }
   let destinationBase = path.join(localDestPath, fileName)
-  // console.log(destinationBase)
+  
   copyFile(sourcePath, destinationBase)
 }
 
